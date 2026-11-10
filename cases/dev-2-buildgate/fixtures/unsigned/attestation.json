@@ -1,0 +1,42 @@
+{
+    "_type": "https://in-toto.io/Statement/v1",
+    "subject": [
+        {
+            "name": "library-1.0.0.zip",
+            "digest": {
+                "sha256": "1c499b8cf0edce586f3efb5bf6f3117935de1e5c96858968cb53e4b06fc60f8f"
+            }
+        }
+    ],
+    "predicateType": "https://slsa.dev/provenance/v1",
+    "predicate": {
+        "buildDefinition": {
+            "buildType": "https://example.test/buildtypes/local-fixture/v1",
+            "externalParameters": {
+                "source": {
+                    "uri": "file:///synthetic/textkit",
+                    "revision": "buildgate-lib-2026.11"
+                },
+                "lockfile_sha256": "e25e84ac2a75f43662d42fbe73362e78d0952c7ac297703296a43ffda656b0be"
+            },
+            "resolvedDependencies": [
+                {
+                    "uri": "pkg:composer/acme/text-common@1.4.2",
+                    "digest": {
+                        "sha256": "e25e84ac2a75f43662d42fbe73362e78d0952c7ac297703296a43ffda656b0be"
+                    }
+                }
+            ]
+        },
+        "runDetails": {
+            "builder": {
+                "id": "builder://lab-buildgate-1"
+            },
+            "metadata": {
+                "invocationId": "inv-1c499b8cf0ed",
+                "startedOn": "2026-11-08T10:00:00Z",
+                "finishedOn": "2026-11-08T10:00:00Z"
+            }
+        }
+    }
+}

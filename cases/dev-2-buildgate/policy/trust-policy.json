@@ -1,12 +1,14 @@
 {
-  "policy_version": "1.0.0",
-  "name": "BuildGate artifact trust policy",
-  "trusted_builders": [
-    "builder://lab-buildgate-1"
-  ],
-  "required_subject_name": "library-1.0.0.zip",
-  "require_source_revision": true,
-  "require_lockfile_match": true,
-  "max_attestation_age_days": 30,
-  "notes": "A matching file hash alone is not proof of trusted origin. The gate must bind subject digest, source revision, lockfile digest, and builder identity."
+    "policy_version": "1.0.0",
+    "name": "BuildGate artifact trust policy",
+    "trusted_builders": [
+        "builder://lab-buildgate-1"
+    ],
+    "required_subject_name": "library-1.0.0.zip",
+    "require_source_revision": true,
+    "require_lockfile_match": true,
+    "max_attestation_age_days": 30,
+    "notes": "A matching file hash alone is not proof of trusted origin. The gate verifies a detached RSA-SHA256 signature over a canonicalized attestation, then checks subject, source, lockfile, builder, and freshness.",
+    "require_signature": true,
+    "trusted_key_sha256": "96c8de89896dcc4368d859b2b3a06b5f731038d091dd19db5b88a34032499ff7"
 }

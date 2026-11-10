@@ -59,7 +59,8 @@ yang benar-benar diuji?
 perbandingan dan event/fixture yang membuktikannya.
 
 **Q9.** Field provenance mana yang diperlukan untuk mengaitkan artefak dengan
-source/build yang sah? Jelaskan trust root dan batas klaim.
+source/build yang sah? Jelaskan trust root, **signature dan fingerprint key**,
+serta batas klaim.
 
 **Q10.** Apakah gate menolak artefak yang diubah dan menerima golden artifact?
 Tunjukkan dua keputusan beserta reason code dan digest.

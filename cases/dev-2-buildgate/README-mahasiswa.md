@@ -39,7 +39,10 @@ Perluas `gate-starter.ps1` (atau tulis gate baru) sehingga memeriksa:
 3. builder ada dan termasuk trust policy;
 4. source revision sama dengan `lib/SOURCE_REVISION`;
 5. digest lockfile sama dengan yang tercatat;
-6. attestation belum kedaluwarsa.
+6. attestation belum kedaluwarsa;
+7. **signature RSA-SHA256** atas attestation tervalidasi dengan public key
+   `policy/buildgate-public.pem`, dan fingerprint key sama dengan
+   `policy/trust-policy.json` (`trusted_key_sha256`).
 
 Gate harus **menolak** arsip yang diubah, attestation kedaluwarsa, source yang
 salah, dan builder tak tepercaya; serta **menerima** golden artifact dari mentor.

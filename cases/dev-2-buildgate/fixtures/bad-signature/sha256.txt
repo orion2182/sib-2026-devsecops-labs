@@ -1,0 +1,3 @@
+1c499b8cf0edce586f3efb5bf6f3117935de1e5c96858968cb53e4b06fc60f8f  library-1.0.0.zip
+41a1c0f06acbe78523baf70a2cf3e4a24e4bb19c28c6198ab4129d94b2ed3921  attestation.json
+4cdab5f789e54d8f6da2e90efed84fbb6f5998f9f8c4ad82e72f5563ec906664  attestation.sig

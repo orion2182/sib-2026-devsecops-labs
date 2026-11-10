@@ -32,7 +32,7 @@ Write-Output "artifact sha256: $digest"
 Write-Output "manifest match:  $matches"
 Write-Output ''
 Write-Output 'WARNING: a matching file hash is not proof of trusted origin.'
-Write-Output 'Add checks for subject name, builder, source revision, lockfile, and freshness.'
+Write-Output 'Add checks for signature, key fingerprint, subject name, builder, source revision, lockfile, and freshness.'
 
 if (-not $matches) { exit 1 }
 exit 0

@@ -20,6 +20,16 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+
+function Get-PhpPath {
+    $cmd = Get-Command php -ErrorAction SilentlyContinue
+    if ($cmd) { return $cmd.Source }
+    foreach ($candidate in @('C:\xampp\php\php.exe', "$env:ProgramFiles\php\php.exe", "${env:ProgramFiles(x86)}\php\php.exe")) {
+        if ($candidate -and (Test-Path $candidate)) { return $candidate }
+    }
+    throw 'PHP 8.1+ not found.'
+}
+
 $FixtureDir = (Resolve-Path $FixtureDir).Path
 $CaseRoot = (Resolve-Path $CaseRoot).Path
 $policy = Get-Content (Join-Path $CaseRoot 'policy\trust-policy.json') -Raw | ConvertFrom-Json
@@ -65,6 +75,35 @@ $builderId = $null
 $attRevision = $null
 $attLockSha = $null
 $finishedOn = $null
+$signatureVerified = $null
+$keyFingerprint = $null
+$publicKeyPath = Join-Path $FixtureDir 'public.pem'
+if (-not (Test-Path $publicKeyPath)) {
+    $publicKeyPath = Join-Path $CaseRoot 'policy\buildgate-public.pem'
+}
+
+if ($policy.require_signature) {
+    $sigPath = Join-Path $FixtureDir 'attestation.sig'
+    if (-not (Test-Path $sigPath)) {
+        $reasons.Add('MISSING_SIGNATURE')
+    } elseif (-not $att) {
+        $reasons.Add('SIGNATURE_WITHOUT_ATTESTATION')
+    } elseif (-not (Test-Path $publicKeyPath)) {
+        $reasons.Add('PUBLIC_KEY_MISSING')
+    } else {
+        $php = Get-PhpPath
+        $verifier = Join-Path $CaseRoot 'tools\verify-signature.php'
+        $raw = & $php $verifier $attestationPath $sigPath $publicKeyPath $policy.trusted_key_sha256 2>$null
+        $parsed = $raw | ConvertFrom-Json
+        $signatureVerified = [bool]$parsed.ok
+        $keyFingerprint = $parsed.fingerprint
+        if (-not $parsed.ok) {
+            $reason = [string]$parsed.reason
+            if ([string]::IsNullOrWhiteSpace($reason)) { $reason = 'BAD_SIGNATURE' }
+            $reasons.Add($reason)
+        }
+    }
+}
 
 if ($att) {
     $subject = @($att.subject)[0]
@@ -105,6 +144,9 @@ $checks.expected_revision = $revision
 $checks.lockfile_sha256 = $lockSha
 $checks.finished_on = $finishedOn
 $checks.reference_date = $ReferenceDate
+$checks.signature_verified = $signatureVerified
+$checks.key_fingerprint = $keyFingerprint
+$checks.trusted_key_fingerprint = $policy.trusted_key_sha256
 
 $decision = if ($reasons.Count -eq 0) { 'pass' } else { 'fail' }
 $result = [ordered]@{
