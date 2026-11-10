@@ -20,7 +20,7 @@ Scanner output MUST include enough context for students to distinguish release-b
 
 ### V. Portable, separate lab delivery
 
-The required workflow SHOULD run locally on representative 8 GB laptops using pinned tools and modest fixtures. This is a release hypothesis subject to pilot; a mentor-hosted runner is required if local operation fails. Each of two groups MUST receive only its assigned repo, student card, and allowed fixture. Instructor golden artifacts, holdout inputs/answers, and reference solutions MUST remain outside student packages.
+The required workflow SHOULD run locally on representative 8 GB laptops using pinned tools and modest fixtures. This is a release hypothesis subject to pilot; a mentor-hosted runner is required if local operation fails. Each of two groups MUST receive only its assigned repo, student card, and allowed fixture. Instructor golden artifacts, holdout inputs/answers, and reference solutions MUST remain outside this public repository and student packages.
 
 ## Learning and Calendar Constraints
 

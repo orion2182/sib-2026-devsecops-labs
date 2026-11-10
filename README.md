@@ -1,29 +1,63 @@
-# DevSecOps Labs 2026 — Spec Kit workspace
+# DevSecOps & Supply Chain Labs 2026 — workspace pembangunan
 
-Instructor-only builder workspace for **two distinct DevSecOps and software supply-chain cases**. Spec Kit 1.2.3 with Codex skills is installed locally. **The two case repositories, pipelines, fixtures, and reference outcomes have not been implemented yet.**
+Repository publik ini menyiapkan lab untuk **2 kelompok SIB** dengan dua keputusan rilis yang berbeda. Kelompok DEV-1 menangani keamanan pipeline CampusAPI; kelompok DEV-2 memverifikasi integritas artefak dan provenance BuildGate. Kalender tetap 20 November–23 Desember 2026. Latar riset, Q1–Q12, rubrik, dan fase ada di `docs/reference/Riset-Lab-DevSecOps-Supply-Chain-2026.md` serta [repo perencanaan](https://github.com/orion2182/sib-2026-cybersecurity-final-project).
 
-| Path | Role |
+**Status per 10 November 2026:** Spec Kit 1.2.3, integrasi OpenCode/Codex, konstitusi, dan tiga spesifikasi tersedia. **Repo kasus, pipeline, scanner fixture, artefak golden, holdout, dan pilot belum dibuat.**
+
+## Dua kasus yang harus dibangun
+
+| Kasus | Artefak utama | Pertanyaan keputusan | Bukti hasil |
+| --- | --- | --- | --- |
+| DEV-1 — CampusAPI release gate | Repo API kecil, lockfile, Dockerfile/config, SCA/SAST/secret scan, SBOM | Temuan mana memblokir rilis dan perubahan minimum apa memperbaikinya? | Gate gagal sebelum lalu lulus sesudah, SBOM cocok dengan build, fungsi API normal tetap lulus |
+| DEV-2 — BuildGate provenance | Repo library kecil, arsip paket inert, hash, log build, attestation/provenance | Di mana rantai source→build→artefak terputus dan bagaimana gate menolak perubahan? | Gate menolak artefak tampered/wrong-source/stale dan menerima golden artifact |
+
+Keduanya wajib memakai input dan versi tool yang terkunci, keputusan pass/fail dengan alasan, dan holdout privat dari mentor. Untuk DEV-1, fokus pada triase scanner dan release gate. Untuk DEV-2, fokus pada digest, asal build, identitas builder, dan trust policy. SBOM menggunakan SPDX atau CycloneDX bila relevan; provenance menggunakan konsep SLSA. Jangan menganggap output scanner atau status hijau CI sebagai jawaban tanpa memeriksa artefak yang diuji.
+
+## Peta file untuk OpenCode
+
+| File/direktori | Fungsi |
 | --- | --- |
-| `.specify/memory/constitution.md` | Shared build and release rules |
-| `specs/001-release-evaluation-harness/spec.md` | Reproducible runner, packaging, evidence, holdout |
-| `specs/002-campusapi-release-gate/spec.md` | DEV-1 API release gate case |
-| `specs/003-buildgate-provenance/spec.md` | DEV-2 artifact provenance case |
-| `docs/reference/Riset-Lab-DevSecOps-Supply-Chain-2026.md` | Frozen research/planning source |
-| `shared/`, `cases/` | Reserved implementation locations |
+| `AGENTS.md` | Instruksi proyek otomatis untuk OpenCode |
+| `.specify/memory/constitution.md` | Aturan sumber, build, gate, keamanan, dan rilis |
+| `specs/001-release-evaluation-harness/spec.md` | Runner bersama, manifest, fail/pass, holdout, packaging |
+| `specs/002-campusapi-release-gate/spec.md` | Kontrak DEV-1 |
+| `specs/003-buildgate-provenance/spec.md` | Kontrak DEV-2 |
+| `docs/reference/Riset-Lab-DevSecOps-Supply-Chain-2026.md` | Task, pertanyaan, rubrik, timeline, dan sumber riset |
+| `shared/`, `cases/` | Lokasi implementasi saat dibangun |
+| `.opencode/commands/` | Perintah Spec Kit untuk OpenCode |
+| `scripts/select_feature.py` | Pemilih fitur aktif lokal |
 
-## Continue with Spec Kit
+## Mulai di laptop lain
 
-Open Codex from this directory. These are **Codex skills, not shell commands**. For the active feature:
+Prasyarat awal: Git, Python 3.11+, dan OpenCode. Kebutuhan container runtime, bahasa API, dan scanner diputuskan di tahap rencana berdasarkan pilot kompatibilitas; jangan menganggapnya sudah terpasang.
 
-1. `$speckit-plan` — choose the runner, toolchain, and artifact design.
-2. `$speckit-checklist` — review specification completeness.
-3. `$speckit-tasks` — write dependency-ordered build tasks.
-4. `$speckit-analyze` — check cross-document consistency.
-5. `$speckit-implement` — build the feature.
-6. `$speckit-converge` — close remaining gaps.
+```bash
+git clone https://github.com/orion2182/sib-2026-devsecops-labs.git
+cd sib-2026-devsecops-labs
+python3 scripts/select_feature.py 001-release-evaluation-harness
+opencode
+```
 
-The first active feature is the shared runner. For another feature, set `.specify/feature.json` to `{"feature_directory":"specs/002-campusapi-release-gate"}` or `{"feature_directory":"specs/003-buildgate-provenance"}`. This file is local and ignored by Git. Recommended order: runner, DEV-1, DEV-2, blind pilot. Do not rerun `$speckit-specify` for the existing specs unless scope changes deliberately.
+Pada Windows gunakan `py -3 scripts/select_feature.py 001-release-evaluation-harness` bila perlu. Di chat OpenCode, jalankan bertahap:
 
-## Release gate
+```text
+/speckit.plan
+/speckit.checklist
+/speckit.tasks
+/speckit.analyze
+/speckit.implement
+/speckit.converge
+```
 
-Each case must include pinned source/lockfile, baseline failure, expected legitimate function, synthetic scanner output where relevant, a reproducible before/after gate, instructor-only holdout, student card Q1–Q12, and private reference outcomes. Verify the gate rejects deliberate faults and accepts a known-good build, while no student package contains secrets, answer keys, or live registry access.
+Perintah sudah ada pada `.opencode/commands/`, sehingga `specify init` tidak perlu diulang. Untuk mengganti fitur, lihat `python3 scripts/select_feature.py --list`, pilih fitur, lalu mulai sesi baru. Urutan pembangunan: runner → DEV-1 → DEV-2 → pilot buta. [Referensi integrasi OpenCode Spec Kit](https://github.github.com/spec-kit/integrations/opencode.html).
+
+## Gerbang rilis mentor
+
+1. Baseline gagal secara deterministik pada kondisi yang disengaja; alasan kegagalan dan versi input/tool tercatat.
+2. Perbaikan atau policy baru menghasilkan pass tanpa menonaktifkan seluruh kategori pemeriksaan; uji fungsi normal tetap lulus.
+3. Manifest mengikat source revision, lockfile, build, SBOM/provenance, dan digest artefak yang benar-benar diuji.
+4. Known-bad dan known-good fixture menghasilkan keputusan yang berbeda sesuai alasan; holdout privat digunakan setelah gate mahasiswa dibekukan.
+5. Paket tiap kelompok hanya memuat repo/fixture kasusnya. Golden artifact, jawaban, kunci, token valid, dan hasil holdout tidak masuk GitHub publik atau paket peserta.
+6. Tidak ada publikasi ke registry, eksekusi paket tidak tepercaya, atau akses sistem produksi. Pilot pada laptop 8 GB mengukur RAM dan waktu; runner mentor menjadi fallback bila perlu.
+
+Repository ini adalah bahan pembangunan, bukan handout mahasiswa. Simpan semua materi penilaian privat di luar GitHub publik.
