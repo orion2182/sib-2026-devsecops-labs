@@ -2,9 +2,9 @@
 
 Repository publik ini menyiapkan lab untuk **2 kelompok SIB** dengan dua keputusan rilis yang berbeda. Kelompok DEV-1 menangani keamanan pipeline CampusAPI; kelompok DEV-2 memverifikasi integritas artefak dan provenance BuildGate. Kalender tetap 20 November–23 Desember 2026. Latar riset, Q1–Q12, rubrik, dan fase ada di `docs/reference/Riset-Lab-DevSecOps-Supply-Chain-2026.md` serta [repo perencanaan](https://github.com/orion2182/sib-2026-cybersecurity-final-project).
 
-**Status per 10 November 2026:** Spec Kit 1.2.3, integrasi OpenCode/Codex, konstitusi, dan tiga spesifikasi tersedia. **Repo kasus, pipeline, scanner fixture, artefak golden, holdout, dan pilot belum dibuat.**
+**Status per 10 November 2026:** 2 kasus DevSecOps dan gate PHP/PowerShell telah dibangun; DEV-1 lulus 13/13 dan DEV-2 lulus 20/20 pemeriksaan instruktur. Pilot buta manusia dan pemeriksaan rilis masih diperlukan. Lihat `docs/BUILD-STATUS.md` dan `../README-TRANSFER.md` pada salinan lengkap.
 
-## Dua kasus yang harus dibangun
+## Dua kasus yang tersedia
 
 | Kasus | Artefak utama | Pertanyaan keputusan | Bukti hasil |
 | --- | --- | --- | --- |
@@ -23,33 +23,23 @@ Keduanya wajib memakai input dan versi tool yang terkunci, keputusan pass/fail d
 | `specs/002-campusapi-release-gate/spec.md` | Kontrak DEV-1 |
 | `specs/003-buildgate-provenance/spec.md` | Kontrak DEV-2 |
 | `docs/reference/Riset-Lab-DevSecOps-Supply-Chain-2026.md` | Task, pertanyaan, rubrik, timeline, dan sumber riset |
-| `shared/`, `cases/` | Lokasi implementasi saat dibangun |
+| `shared/`, `cases/` | Implementasi runner dan kasus |
 | `.opencode/commands/` | Perintah Spec Kit untuk OpenCode |
-| `scripts/select_feature.py` | Pemilih fitur aktif lokal |
+| `scripts/select-feature.ps1` | Pemilih fitur di Windows tanpa Python; `scripts/select_feature.py` opsional |
 
-## Mulai di laptop lain
+## Menjalankan dan mengembangkan di Windows
 
-Prasyarat awal: Git, Python 3.11+, dan OpenCode. Kebutuhan container runtime, bahasa API, dan scanner diputuskan di tahap rencana berdasarkan pilot kompatibilitas; jangan menganggapnya sudah terpasang.
+Salinan lengkap dari flashdisk memiliki `README-TRANSFER.md` di direktori induk. Jalankan lab dari disk lokal Windows dengan PowerShell 5.1+ dan PHP 8.1+; **Python dan Docker tidak diperlukan** untuk implementasi sekarang. Instruksi menjalankan, menguji, dan mengemas kasus ada di `docs/WINDOWS-SETUP.md` dan `docs/BUILD-STATUS.md`.
 
-```bash
-git clone https://github.com/orion2182/sib-2026-devsecops-labs.git
-cd sib-2026-devsecops-labs
-python3 scripts/select_feature.py 001-release-evaluation-harness
+Untuk perubahan spesifikasi di OpenCode, jalankan dari root repo ini:
+
+```powershell
+.\scripts\select-feature.ps1 --list
+.\scripts\select-feature.ps1 002-campusapi-release-gate
 opencode
 ```
 
-Pada Windows gunakan `py -3 scripts/select_feature.py 001-release-evaluation-harness` bila perlu. Di chat OpenCode, jalankan bertahap:
-
-```text
-/speckit.plan
-/speckit.checklist
-/speckit.tasks
-/speckit.analyze
-/speckit.implement
-/speckit.converge
-```
-
-Perintah sudah ada pada `.opencode/commands/`, sehingga `specify init` tidak perlu diulang. Untuk mengganti fitur, lihat `python3 scripts/select_feature.py --list`, pilih fitur, lalu mulai sesi baru. Urutan pembangunan: runner → DEV-1 → DEV-2 → pilot buta. [Referensi integrasi OpenCode Spec Kit](https://github.github.com/spec-kit/integrations/opencode.html).
+Perintah `/speckit.plan`, `/speckit.checklist`, `/speckit.tasks`, `/speckit.analyze`, `/speckit.implement`, dan `/speckit.converge` dipakai **di chat OpenCode** ketika mengubah fitur, bukan untuk menjalankan lab. `scripts/select_feature.py` tersedia hanya sebagai alternatif jika Python memang terpasang. Paket peserta harus dibuat melalui perintah packaging dan diperiksa sebelum dibagikan; direktori builder ini memuat bahan instruktur.
 
 ## Gerbang rilis mentor
 

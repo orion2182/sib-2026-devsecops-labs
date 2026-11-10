@@ -35,9 +35,10 @@ Updated 2026-11-10.
   policy with a trusted builder and a 30-day attestation limit.
 - Deterministic inert archive plus SLSA-shaped attestations for: golden,
   tampered, wrong source, stale, untrusted builder, and missing builder.
-- Gate binds subject name/digest, builder, source revision, lockfile digest, and
-  freshness. A self-consistent file hash alone is not accepted.
-- Verifications: 12/12 pass (five rejects, golden accept, deterministic repeat).
+- Gate binds subject name/digest, builder, source revision, lockfile digest,
+  freshness, and a detached RSA signature over the canonical attestation. A
+  self-consistent file hash alone is not accepted.
+- Verifications: 20/20 pass, including unsigned, bad-signature, and untrusted-key rejection.
 - Student package (24 files) verified with no golden artifact, reference gate,
   expected outcomes, or prior gate results.
 
@@ -51,12 +52,11 @@ Updated 2026-11-10.
 
 Both DevSecOps cases are implemented, tested, and packaged.
 
-## Not built yet
+## Remaining before release
 
-- Blind pilot and resource measurement for the DevSecOps cases.
-- Cross-case difficulty calibration.
-- A signing-key simulation for DEV-2 (the current trust root is a local builder id,
-  not a cryptographic signature).
+- Pilot buta manusia dan kalibrasi dua kasus pada laptop perwakilan.
+- Pemeriksaan final paket peserta dan fallback mentor.
+- DEV-2 kini memakai tanda tangan RSA-2048 lokal dengan verifikasi signature detached; lihat `instructor-private/dev-2/verify.ps1`. Kunci privat tetap di luar Git.
 
 ## How to verify DEV-1
 

@@ -12,6 +12,6 @@
 
 ## OpenCode handoff
 
-- The repository contains specifications, not runnable case repositories or pipelines. Build the shared runner first, then DEV-1 CampusAPI and DEV-2 BuildGate. Preserve the 20 November–23 December 2026 calendar and Q1–Q12.
-- OpenCode loads this file from the repository root. Use `python3 scripts/select_feature.py --list` and select a feature before interactive `/speckit.plan`, `/speckit.tasks`, and `/speckit.implement` commands.
-- A case is complete only when pinned inputs, baseline fail, justified pass, normal-function check, exact artifact binding, holdout separation, and a representative-device pilot pass.
+- Dua kasus dan runner sudah diimplementasikan. Lihat `docs/BUILD-STATUS.md` dan `docs/WINDOWS-SETUP.md`; lanjutkan pilot buta manusia dan pemeriksaan rilis. Pertahankan kalender 20 November–23 Desember 2026 dan Q1–Q12.
+- OpenCode membaca file ini dari root repo. Pada Windows tanpa Python, gunakan `.\scripts\select-feature.ps1 --list` dan pilih fitur sebelum perintah Spec Kit interaktif. `scripts/select_feature.py` hanya alternatif.
+- Perubahan kasus harus menjaga baseline fail, pass yang terjustifikasi, fungsi normal, pengikatan artefak, pemisahan holdout, dan pilot pada perangkat perwakilan.
