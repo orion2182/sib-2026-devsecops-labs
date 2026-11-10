@@ -1,0 +1,15 @@
+{
+  "scanner": "synthetic-container-scan",
+  "version": "1.4.0",
+  "image": "campusapi:baseline",
+  "findings": [
+    {
+      "id": "CTR-ROOT-001",
+      "rule": "container-runs-as-root",
+      "file": "Dockerfile",
+      "line": 4,
+      "severity": "high",
+      "message": "The runtime user is root."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "campus/campusapi",
+  "description": "Synthetic CampusAPI used for a DevSecOps release-gate lab.",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.1",
+    "acme/http-client": "1.2.3",
+    "acme/json-util": "2.0.1"
+  },
+  "autoload": {
+    "files": ["app/src/store.php"]
+  }
+}

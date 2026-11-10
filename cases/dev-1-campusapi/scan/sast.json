@@ -1,0 +1,16 @@
+{
+  "scanner": "synthetic-sast",
+  "version": "1.9.2",
+  "note": "Heuristic report. The flagged code builds arrays only and does not use a database, so this is a false positive to triage, not a blocker.",
+  "findings": [
+    {
+      "id": "SAST-INTERP-001",
+      "rule": "possible-sql-string-concatenation",
+      "file": "app/src/store.php",
+      "line": 40,
+      "severity": "medium",
+      "confidence": "low",
+      "message": "String concatenation near a data lookup; verify whether a query is actually built."
+    }
+  ]
+}

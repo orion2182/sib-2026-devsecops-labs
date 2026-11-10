@@ -1,0 +1,43 @@
+{
+  "_readme": [
+    "Synthetic lockfile for the CampusAPI lab. Packages are fictional and are never downloaded."
+  ],
+  "content-hash": "9f2c1d7a4b6e8f0a1c3d5e7b9a2f4c6d8e0b1a3c5d7f9e2b4a6c8d0e1f3a5b7c",
+  "packages": [
+    {
+      "name": "acme/http-client",
+      "version": "1.2.3",
+      "type": "library",
+      "license": ["MIT"],
+      "description": "Synthetic HTTP client fixture.",
+      "dist": {
+        "type": "zip",
+        "url": "file://vendor-fixtures/acme-http-client-1.2.3.zip",
+        "reference": "aaa111bbb222ccc333ddd444eee555fff6667778"
+      }
+    },
+    {
+      "name": "acme/json-util",
+      "version": "2.0.1",
+      "type": "library",
+      "license": ["MIT"],
+      "description": "Synthetic JSON helper fixture.",
+      "dist": {
+        "type": "zip",
+        "url": "file://vendor-fixtures/acme-json-util-2.0.1.zip",
+        "reference": "999888777666555444333222111000fffeeeccc1"
+      }
+    }
+  ],
+  "packages-dev": [],
+  "aliases": [],
+  "minimum-stability": "stable",
+  "stability-flags": {},
+  "prefer-stable": true,
+  "prefer-lowest": false,
+  "platform": {
+    "php": ">=8.1"
+  },
+  "platform-dev": {},
+  "plugin-api-version": "2.6.0"
+}

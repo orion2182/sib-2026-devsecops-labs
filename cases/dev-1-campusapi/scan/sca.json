@@ -1,0 +1,33 @@
+{
+  "scanner": "synthetic-sca",
+  "version": "2.4.0",
+  "database_version": "2026.11.1",
+  "note": "Fixture report. It contains one finding for a package that is not present in the lockfile.",
+  "findings": [
+    {
+      "id": "ACME-2026-0001",
+      "package": "acme/http-client",
+      "installed_version": "1.2.3",
+      "severity": "critical",
+      "direct": true,
+      "path": ["campus/campusapi", "acme/http-client"]
+    },
+    {
+      "id": "ACME-2026-0002",
+      "package": "acme/json-util",
+      "installed_version": "2.0.1",
+      "severity": "medium",
+      "direct": true,
+      "path": ["campus/campusapi", "acme/json-util"]
+    },
+    {
+      "id": "ACME-2025-9911",
+      "package": "acme/legacy-db",
+      "installed_version": "0.9.0",
+      "severity": "critical",
+      "direct": false,
+      "path": ["acme/legacy-db"],
+      "comment": "Not reachable from this lockfile; likely stale scanner cache."
+    }
+  ]
+}

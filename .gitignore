@@ -12,6 +12,8 @@ dist/
 build/
 runtime-data/
 artifacts/
+packages/
+dist/
 instructor-private/
 holdout-private/
 secrets/

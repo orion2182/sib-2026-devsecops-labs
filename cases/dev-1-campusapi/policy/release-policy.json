@@ -1,0 +1,10 @@
+{
+  "policy_version": "1.0.0",
+  "name": "CampusAPI release policy",
+  "block_severities": ["critical", "high"],
+  "require_sbom": true,
+  "require_non_root_container": true,
+  "require_functional_tests": true,
+  "allow_blanket_suppression": false,
+  "notes": "A finding may be accepted only with an explicit exception carrying owner, rationale, expiry, and compensating control. Editing a scanner report does not change the gate decision."
+}
