@@ -29,15 +29,34 @@ Updated 2026-11-10.
 - Scanner reports include a stale SCA finding and a SAST false positive to force
   triage rather than blind trust.
 
+### DEV-2 BuildGate provenance (feature 003)
+
+- Synthetic `acme/textkit` library, pinned lockfile, source revision, and trust
+  policy with a trusted builder and a 30-day attestation limit.
+- Deterministic inert archive plus SLSA-shaped attestations for: golden,
+  tampered, wrong source, stale, untrusted builder, and missing builder.
+- Gate binds subject name/digest, builder, source revision, lockfile digest, and
+  freshness. A self-consistent file hash alone is not accepted.
+- Verifications: 12/12 pass (five rejects, golden accept, deterministic repeat).
+- Student package (24 files) verified with no golden artifact, reference gate,
+  expected outcomes, or prior gate results.
+
+### Student packages
+
+- DEV-1: 22 files, no build, SBOM, corrected overlay, or prior results. The
+  packaged baseline still fails with the four designed reasons.
+- DEV-2: 24 files, starter gate only.
+
+## Theme status
+
+Both DevSecOps cases are implemented, tested, and packaged.
+
 ## Not built yet
 
-- DEV-2 BuildGate provenance (feature 003): library source, inert archives,
-  hash manifest, build log, provenance statement, tamper/stale/wrong-source
-  fixtures, golden artifact acceptance, package.
-- Student package zip for DEV-1 (files are ready; a packaging script with
-  manifest and exclusion checks is still needed).
 - Blind pilot and resource measurement for the DevSecOps cases.
 - Cross-case difficulty calibration.
+- A signing-key simulation for DEV-2 (the current trust root is a local builder id,
+  not a cryptographic signature).
 
 ## How to verify DEV-1
 

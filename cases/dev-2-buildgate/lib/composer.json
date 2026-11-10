@@ -1,0 +1,14 @@
+{
+  "name": "acme/textkit",
+  "description": "Synthetic text helper library for the BuildGate provenance lab.",
+  "type": "library",
+  "license": "MIT",
+  "version": "1.0.0",
+  "require": {
+    "php": ">=8.1",
+    "acme/text-common": "1.4.2"
+  },
+  "autoload": {
+    "files": ["src/TextKit.php"]
+  }
+}

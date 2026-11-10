@@ -1,0 +1,26 @@
+{
+  "_readme": ["Synthetic lockfile. Packages are fictional and never downloaded."],
+  "content-hash": "5a6b7c8d9e0f1a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192",
+  "packages": [
+    {
+      "name": "acme/text-common",
+      "version": "1.4.2",
+      "type": "library",
+      "license": ["MIT"],
+      "dist": {
+        "type": "zip",
+        "url": "file://vendor-fixtures/acme-text-common-1.4.2.zip",
+        "reference": "111222333444555666777888999aaabbbcccddd1"
+      }
+    }
+  ],
+  "packages-dev": [],
+  "aliases": [],
+  "minimum-stability": "stable",
+  "stability-flags": {},
+  "prefer-stable": true,
+  "prefer-lowest": false,
+  "platform": { "php": ">=8.1" },
+  "platform-dev": {},
+  "plugin-api-version": "2.6.0"
+}

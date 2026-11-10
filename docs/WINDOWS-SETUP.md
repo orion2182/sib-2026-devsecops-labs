@@ -27,15 +27,37 @@ php tools\make-sbom.php .
 The functional stage starts the API on `127.0.0.1:8096` and stops it afterwards.
 Use `-Port 8100` if the port is busy.
 
+## DEV-2 commands
+
+```powershell
+cd cases\dev-2-buildgate
+
+# Generate inert fixtures (instructor step)
+php tools\build-fixtures.php
+
+# Starter check (digest only; intentionally incomplete)
+.\tools\gate-starter.ps1 -FixtureDir .\fixtures\tampered
+
+# Reference gate on each fixture
+.\tools\gate.ps1 -FixtureDir .\fixtures\tampered
+.\tools\gate.ps1 -FixtureDir .\fixtures\wrong-source
+.\tools\gate.ps1 -FixtureDir .\fixtures\stale
+```
+
 ## Instructor verification
 
 ```powershell
 cd instructor-private\dev-1
 .\verify.ps1
+
+cd ..\dev-2
+.\verify.ps1
 ```
 
-This proves baseline fail, corrected pass, deterministic build, stale-SBOM
-rejection, weakened-policy rejection, and root-runtime rejection.
+DEV-1 proves baseline fail, corrected pass, deterministic build, stale-SBOM
+rejection, weakened-policy rejection, and root-runtime rejection. DEV-2 proves
+tampered/wrong-source/stale/untrusted/missing-builder rejection and golden
+artifact acceptance.
 
 ## Troubleshooting
 
